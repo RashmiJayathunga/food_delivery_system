@@ -1,0 +1,367 @@
+/* ===== General Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+  color: #222;
+  overflow-x: hidden;
+}
+
+/* ===== Header ===== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffe97f;
+  padding: 20px 100px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  margin-right: 10px;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #ff3c3c;
+}
+
+/* ===== Auth Buttons (Login & Signup) ===== */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-btn,
+.signup-btn {
+  border: 2px solid #ff3c3c;
+  background: transparent;
+  color: #ff3c3c;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #ff3c3c;
+  color: #fff;
+}
+
+.signup-btn {
+  background: #ff3c3c;
+  color: #fff;
+}
+
+.signup-btn:hover {
+  background: #e22c2c;
+}
+
+/* ===== Hero Section (Full Background Image) ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  text-align: center;
+  color: #fff;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* ===== Search Bar ===== */
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 30px;
+  padding: 5px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 18px;
+  border-radius: 30px;
+  font-size: 1rem;
+  background: transparent;
+  color: #333;
+}
+
+.search-bar input::placeholder {
+  color: #777;
+}
+
+.find-btn {
+  background-color: #ff3c3c;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.find-btn:hover {
+  background-color: #e22c2c;
+}
+
+/* ===== Browse Food Section ===== */
+.browse-section {
+  text-align: center;
+  padding: 100px 120px;
+  background: #fff;
+}
+
+.browse-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.browse-header p {
+  color: #777;
+  font-size: 1.05rem;
+  max-width: 700px;
+  margin: 0 auto 50px;
+  line-height: 1.6;
+}
+
+/* ===== Food Grid ===== */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  justify-items: center;
+}
+
+.food-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  width: 260px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.food-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.food-card h3 {
+  font-size: 1.1rem;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.rating {
+  color: #ffa500;
+  font-size: 1rem;
+  margin: 6px 0;
+}
+
+.price {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.cart-btn {
+  background: #ff3c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.cart-btn:hover {
+  background: #e22c2c;
+}
+/* ===== Footer ===== */
+.footer {
+  background: #222;
+  color: #fff;
+  padding: 60px 100px 30px;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-logo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff3c3c;
+}
+
+.footer-logo span {
+  color: #fff;
+}
+
+.footer-logo p {
+  color: #ccc;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  max-width: 250px;
+}
+
+/* Description Section */
+.footer-description {
+  max-width: 400px;
+  text-align: left;
+}
+
+.footer-description p {
+  color: #ccc;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* Address Section */
+.footer-address {
+  color: #ccc;
+  text-align: left;
+  max-width: 250px;
+}
+
+.footer-address h4 {
+  color: #ff3c3c;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.footer-address p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Bottom Line */
+.footer-bottom {
+  border-top: 1px solid #444;
+  padding-top: 15px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+
+/* Bottom Line */
+.footer-bottom {
+  border-top: 1px solid #444;
+  padding-top: 15px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+
+/* ===== Responsive Design ===== */
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    padding: 20px 40px;
+  }
+
+  .nav {
+    margin: 15px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .browse-section {
+    padding: 60px 20px;
+  }
+
+  .food-grid {
+    grid-template-columns: 1fr;
+  }
+}
