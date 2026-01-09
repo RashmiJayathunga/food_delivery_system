@@ -1,13 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaGoogle, FaApple } from "react-icons/fa";
 import "../styles/Auth.css";
-// Replace this with your video file path
 import loginVideo from "../assets/food-bg.mp4"; 
+import api from "../api/axios";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const res = await api.post("/auth/login", { email, password });
+      // Save token & user to localStorage
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      alert("Login successful!");
+      navigate("/"); // Redirect to home/dashboard
+    } catch (err) {
+      alert(err.response?.data?.message || "Login failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="auth-page">
@@ -17,7 +39,6 @@ export default function Login() {
         className="auth-card"
       >
         <div className="auth-image">
-          {/* Video replaces the Image */}
           <video autoPlay loop muted playsInline className="auth-video-content">
             <source src={loginVideo} type="video/mp4" />
           </video>
@@ -30,10 +51,16 @@ export default function Login() {
           </div>
           <p className="subtitle">The kitchen is waiting for you.</p>
           
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="input-group">
               <FaEnvelope className="input-icon" />
-              <input type="email" placeholder="Email Address" required />
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                required 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="input-group">
               <FaLock className="input-icon" />
@@ -41,6 +68,8 @@ export default function Login() {
                 type={showPassword ? "text" : "password"} 
                 placeholder="Password" 
                 required 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)}
               />
               <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -51,7 +80,9 @@ export default function Login() {
               <Link to="/forgot-password">Forgot Password?</Link>
             </div>
 
-            <button type="submit" className="btn-primary">Sign In</button>
+            <button type="submit" className="btn-primary" disabled={isLoading}>
+              {isLoading ? <div className="spinner"></div> : "Sign In"}
+            </button>
           </form>
 
           <div className="divider"><span>Or continue with</span></div>
