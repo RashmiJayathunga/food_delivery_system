@@ -20,7 +20,7 @@ export default function Login() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/login", { email, password });
       // Save token & user to localStorage
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -43,7 +43,7 @@ export default function Login() {
     const idToken = await result.user.getIdToken();
     console.log("ID Token:", idToken); // <-- Should log a JWT string
 
-    const res = await api.post("/auth/google", { idToken });
+    const res = await api.post("/google", { idToken });
 
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("user", JSON.stringify(res.data.user));

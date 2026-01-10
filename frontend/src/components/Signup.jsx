@@ -24,7 +24,7 @@ export default function Signup() {
         onSubmit: async (values) => {
             try {
                 setIsLoading(true);
-                const res = await api.post("/auth/signup", values); // <-- send to backend
+                const res = await api.post("api/auth/signup", values); // <-- send to backend
                 alert(res.data.message); // "Signup successful"
                 navigate("/login"); // redirect to login page
             } catch (err) {
