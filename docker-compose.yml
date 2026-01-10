@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      # Pass the argument here so Docker sees it during 'npm run build'
+      args:
+        - VITE_API_URL=http://3.80.228.57:5000
+    container_name: frontend
+    ports:
+      - "80:80"
+    # Note: env_file here is useless for Vite/React, it only helps Nginx (which doesn't use it)
+    depends_on:
+      - backend
+    restart: always
