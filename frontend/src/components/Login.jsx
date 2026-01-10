@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaGoogle, FaApple } from "react-icons/fa";
 import "../styles/Auth.css";
-import loginVideo from "../assets/food-bg.mp4"; 
+import loginVideo from "../assets/food-bg.mp4";
 import api from "../api/axios";
+import { signInWithPopup } from "firebase/auth"
+import { auth, googleProvider } from "../firebase/firebase"
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,11 +33,37 @@ export default function Login() {
     }
   };
 
+  const handleGoogleLogin = async () => {
+  try {
+    setIsLoading(true);
+
+    const result = await signInWithPopup(auth, googleProvider);
+
+    // ← Add this here to check the token
+    const idToken = await result.user.getIdToken();
+    console.log("ID Token:", idToken); // <-- Should log a JWT string
+
+    const res = await api.post("/auth/google", { idToken });
+
+    localStorage.setItem("token", res.data.token);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+    alert("Google login failed");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
+
   return (
     <div className="auth-page">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} 
-        animate={{ opacity: 1, y: 0 }} 
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         className="auth-card"
       >
         <div className="auth-image">
@@ -50,32 +78,32 @@ export default function Login() {
             <h2>Welcome <span className="highlight">Back</span></h2>
           </div>
           <p className="subtitle">The kitchen is waiting for you.</p>
-          
+
           <form onSubmit={handleLogin}>
             <div className="input-group">
               <FaEnvelope className="input-icon" />
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                required 
-                value={email} 
+              <input
+                type="email"
+                placeholder="Email Address"
+                required
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-group">
               <FaLock className="input-icon" />
-              <input 
-                type={showPassword ? "text" : "password"} 
-                placeholder="Password" 
-                required 
-                value={password} 
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+                value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <span className="password-toggle" onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            
+
             <div className="forgot-pass">
               <Link to="/forgot-password">Forgot Password?</Link>
             </div>
@@ -86,12 +114,15 @@ export default function Login() {
           </form>
 
           <div className="divider"><span>Or continue with</span></div>
-          
+
           <div className="social-group">
-            <button className="social-btn"><FaGoogle /> Google</button>
+            <button className="social-btn" onClick={handleGoogleLogin}>
+              <FaGoogle /> Google
+            </button>
+
             <button className="social-btn"><FaApple /> Apple</button>
           </div>
-          
+
           <p className="footer-text">
             Don't have an account? <Link to="/signup" className="link">Join Now</Link>
           </p>
